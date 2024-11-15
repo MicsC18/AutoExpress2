@@ -15,7 +15,9 @@
 
 
         if(empty($idSucursal) || empty($Empleadonombre)|| empty($empleadoClave)){
-            echo('mal');
+            $_SESSION['mensaje'] = 'Todos los campos son obligatorios.';
+            $_SESSION['tipo_mensaje'] = 'error';
+            header('Location: ../../Vistas/GestionSucursales/indexGS.php');
             exit();
         }
 
@@ -36,3 +38,4 @@
         exit();
     }
 ?>
+
