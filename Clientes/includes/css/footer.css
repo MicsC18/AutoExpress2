@@ -1,0 +1,60 @@
+/* Footer */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px auto 0 auto;
+    padding: 25px;
+    bottom: 0;
+}
+
+.link {
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease-in;
+}
+
+.footer-link:hover {
+    color: rgb(99, 99, 224);
+}
+
+.footer-texto {
+    color: white;
+    text-align: center;
+}
+
+.info {
+    padding-top: 25px;
+}
+
+.firma {
+    color: white;
+    padding-top: 30px;
+    text-align: center;
+}
+
+/*Responsividad*/
+@media screen and (max-width: 375px) {
+
+    /* Footer */
+    .link h5 {
+        font-size: 1.1rem;
+    }
+
+    .footer-link {
+        font-size: 0.9rem;
+    }
+
+    .info {
+        font-size: 0.8rem;
+    }
+}

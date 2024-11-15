@@ -1,0 +1,28 @@
+.boton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.iniciar-sesion, .recup-contraseña {
+    background-color: rgb(99, 99, 224);
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 5px;
+    width: 300px;
+    transition: all 0.2 ease-in;
+}
+
+.iniciar-sesion:hover, .recup-contraseña:hover {
+    border: 1px solid rgb(99, 99, 224);
+    background-color: white;
+    color: rgb(99, 99, 224);
+}
+
+@media screen and (min-width:990px){
+    .section-container{
+        width: 50% !important;
+    }
+}

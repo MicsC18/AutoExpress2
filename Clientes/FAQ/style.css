@@ -1,0 +1,53 @@
+:root{
+    --transicion: .33s ease;
+}
+
+.buscador-palabras {
+    outline: none;
+}
+.lupa-buscador {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.desc-down {
+    animation: giro var(--transicion);
+}
+
+.desc-up {
+    animation: giro-inverso var(--transicion);
+}
+
+.faq {
+    transition: border var(--transicion);
+    cursor: pointer;
+}
+.encontrado{
+    font-weight: bold;
+    text-decoration: underline;
+}
+@keyframes giro {
+    from {
+        transform: rotate(180deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes giro-inverso {
+    from {
+        transform: rotate(180deg);
+    }
+
+    to {
+        transform: rotate(0);
+    }
+}
+
+@media screen and (min-width: 992px){
+    .faq:hover{
+        border: 1px solid rgb(99, 99, 224) !important;
+    }
+}
