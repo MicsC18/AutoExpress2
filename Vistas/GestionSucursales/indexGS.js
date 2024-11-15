@@ -8,17 +8,65 @@ function inicio(){
 }
 
 
-function AsignarEmpleado(){
+async function AsignarEmpleado() {
     const botonesAsignar = document.querySelectorAll('.btnAsignarEmpleado');
     botonesAsignar.forEach((boton) => {
-        boton.addEventListener('click', function(e) {
-           
-            const IdSucursal = e.target.getAttribute('data-id');
-            document.getElementById('idSucursal').value = IdSucursal;
-            console.log('ID del la sucursal:', IdSucursal); 
+        boton.addEventListener('click', async function (e) {
+            const IdUsuarioGS = e.target.getAttribute('data-id');  // Obtener el ID del usuario
+            const NombreUsuarioSeleccionado = e.target.getAttribute('data-nombre');  // Obtener el nombre del usuario
             
+         
+            document.getElementById('IdUsuarioGS').value = IdUsuarioGS;
+            document.getElementById('NombreUsuarioSeleccionado').value = NombreUsuarioSeleccionado;
+
+            console.log('ID usuario y nmbre:',IdUsuarioGS, NombreUsuarioSeleccionado); 
+
+         
+            const rolSelect = document.getElementById('NuevoRolUsuario');
+            const selectSucursalContainer = document.getElementById('selectSucursalContainer');
+            const sucursalSelect = document.getElementById('sucursalAsignadaUsuario');
+
+            
+            selectSucursalContainer.style.display = "none";
+
+            
+            rolSelect.addEventListener('change', async function () {
+                if (rolSelect.value == '4') {  // Si el valor seleccionado es 4
+                  
+                    selectSucursalContainer.style.display = "block";
+
+
+                    await cargarSucursales(sucursalSelect);
+                } else {
+                 
+                    selectSucursalContainer.style.display = "none";
+                }
+            });
         });
     });
+}
+
+async function cargarSucursales(selectElement) {
+    try {
+        const response = await fetch('./../../Controlador/GestionSucursales/obtenerSucursales.php');
+        const sucursales = await response.json();  
+
+        if (selectElement) {
+          
+            selectElement.innerHTML = '<option value="">Seleccione una sucursal</option>';
+
+            sucursales.forEach(sucursal => {
+                const option = document.createElement('option');
+                option.value = sucursal.id_sucursal;
+                option.textContent = sucursal.nombre;
+                selectElement.appendChild(option);
+            });
+        } else {
+            console.error('El elemento select no existe.');
+        }
+    } catch (error) {
+        console.error('Error al cargar las sucursales:', error);
+    }
 }
 
 function EliminarUSuario(){
