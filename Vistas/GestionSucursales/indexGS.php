@@ -169,7 +169,7 @@ session_start();
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalEliminarSucursalLabel">Eliminar Modelo</h5> 
+                                <h5 class="modal-title" id="modalEliminarSucursalLabel">Eliminar Sucursal</h5> 
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" id="BodymodalEliminarSucursal">
@@ -191,15 +191,6 @@ session_start();
 
             </div>
             <div class="tab-pane fade" id="empleados">
-                
-             <!-- Mensajes de estado -->
-                <?php if (isset($_SESSION['tipo_mensaje'])): ?>
-                    <div class="alert alert-<?php echo $_SESSION['tipo_mensaje'] === 'success' ? 'success' : 'danger'; ?>" id="alert-mensaje">
-                        <strong><?php echo $_SESSION['tipo_mensaje'] === 'success' ? 'Éxito!' : 'Error!'; ?></strong> <?php echo $_SESSION['mensaje']; ?>
-                    </div>
-                    <?php unset($_SESSION['tipo_mensaje'], $_SESSION['mensaje']); ?>
-                <?php endif; ?>
-
                 <div class="table-responsive mt-4">
                     <table class="table table-striped">
                         <thead>
@@ -213,12 +204,9 @@ session_start();
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
 
             <div class="tab-pane fade" id="usuarios"><br>
-                
 
                 <div class="table-responsive mt-4">
                     <table class="table table-striped">
@@ -305,30 +293,40 @@ session_start();
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                             <div class="modal-body">
-                                <form id="ReasignarRolForm" method="POST" action="../../Controlador/GestionSucursales/.php">
+                            <div class="modal-body">
+                                <form id="ReasignarRolForm" method="POST" action="../../Controlador/GestionSucursales/EditarRolUsuario.php">
+                                    <input type="hidden" id="IdUsuarioGS" name="IdUsuarioGS">
+                                    <input type="hidden" id="NombreUsuarioSeleccionado" name="NombreUsuarioSeleccionado">
+
                                     <div class="mb-3">
                                         <label for="NuevoRolUsuario" class="form-label">Seleccionar Rol</label>
                                         <select name="NuevoRolUsuario" id="NuevoRolUsuario" class="form-select" >
                                             <option value="">Seleccione el rol a asignar.</option>
-                                                <?php 
-                                                    foreach($roles as $rol) {
-                                                        echo '<option value="'.$rol["id"].'">'.$rol["nombre"].'</option>';
-                                                    } 
-                                                ?>
+                                            <?php 
+                                                foreach($roles as $rol) {
+                                                    echo '<option value="'.$rol["id"].'">'.$rol["nombre"].'</option>';
+                                                } 
+                                            ?>
                                         </select>
                                         <div class="invalid-feedback"></div>
                                     </div>
-                                   
+                                    <div class="mb-3" id="selectSucursalContainer" style="display:none;">
+                                        <label for="sucursalAsignadaUsuario" class="form-label">Seleccionar Sucursal</label>
+                                        <select name="sucursalAsignadaUsuario" id="sucursalAsignadaUsuario" class="form-select">
+                                            <option value="">Seleccione una sucursal</option>
+                                        </select>
+                                    </div>
+                                
                                     <div class="d-flex justify-content-between">
                                         <button type="submit" class="btn btn-success" id="ReasignarRolBTN">Guardar Rol</button>
                                         <button type="button" class="btn btn-outline-secondary" id="CancelarReasignarRolBTN" data-bs-dismiss="modal">Cancelar Operación</button>
                                     </div>
-                               </form>
+                              </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Modal Eliminar USUARIO-->
                 <div class="modal fade" id="modalEliminarUsuario" tabindex="-1" aria-labelledby="modalEliminarUsuarioLabel" aria-hidden="true" data-bs-backdrop="true">
