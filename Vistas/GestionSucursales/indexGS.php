@@ -96,6 +96,10 @@ session_start();
                     </table>
                 </div>
 
+                <div class="d-grid gap-2">
+                  <button class="btn btn-outline-primary" type="button"  data-bs-toggle='modal' data-bs-target='#AgregarSucurdalModal'>Agregar Sucursal</button>
+                </div>
+
                  <!-- Modal Asignar Empleado -->
                 <div class="modal fade" id="AsignarEmpleadoModal" tabindex="-1" aria-labelledby="AsignarEmpleadoLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -125,6 +129,44 @@ session_start();
                     </div>
                 </div>
 
+                <div class="modal fade" id="AgregarSucurdalModal" tabindex="-1" aria-labelledby="AgregarSucursalModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="AgregarSucurdalModalLabel">Editar Sucursal</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="AgregarSucurdalForm" method="POST" action="../../Controlador/GestionSucursales/AgregarSucursal.php">
+                                    <input type="hidden" id="idSucursal" name="idSucursal">
+                                    <div class="mb-3">
+                                        <label for="nombreSucursalAgregar" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombreSucursalAgregar" name="nombreSucursalAgregar" >
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="provinciaSucursalAgregar" class="form-label">Provincia</label>
+                                        <input type="text" class="form-control" id="provinciaSucursalAgregar" name="provinciaSucursalAgregar" >
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="codigoPostalSucursalAgregar" class="form-label">Código Postal</label>
+                                        <input type="number" class="form-control" id="codigoPostalSucursalAgregar" name="codigoPostalSucursalAgregar" >
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ubicacionSucursalAgregar" class="form-label">Ubicación</label>
+                                        <input type="text" class="form-control" id="ubicacionSucursalAgregar" name="ubicacionSucursalAgregar" >
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="AgergarSucursalBTN">Agregar Sucursal</button>
+                                    <button type="button" class="btn btn-secondary" id="CancelarAgergarSucursalBTN" data-bs-dismiss="modal">Cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                  <!-- Modal Editar Sucursal -->
                 <div class="modal fade" id="editarSucursalModal" tabindex="-1" aria-labelledby="editarSucursalModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -148,7 +190,7 @@ session_start();
                                     </div>
                                     <div class="mb-3">
                                         <label for="codigoPostalSucursal" class="form-label">Código Postal</label>
-                                        <input type="text" class="form-control" id="codigoPostalSucursal" name="codigoPostalSucursal" required>
+                                        <input type="number" class="form-control" id="codigoPostalSucursal" name="codigoPostalSucursal" required>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
@@ -362,3 +404,4 @@ session_start();
 
 </body>
 </html>
+
