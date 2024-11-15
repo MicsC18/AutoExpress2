@@ -16,7 +16,7 @@
                 echo "<td>
                         <button type='button' class='btn btn-secondary btn-sm ' data-id='{$row['id_sucursal']}' data-bs-toggle='modal' data-bs-target='#editarSucursalModal'>Editar</button>
                         <button type='button' class='btn btn-danger btn-sm ' data-id='{$row['id_sucursal']}' data-bs-toggle='modal' data-bs-target='#modalEliminarSucursal'>Eliminar</button>
-                        <button type='button' class='btn btn-danger btn-sm btnAsignarEmpleado' data-id='{$row['id_sucursal']}' data-bs-toggle='modal' data-bs-target='#AsignarEmpleadoModal'>Asignar Empleado</button>
+                        <button type='button' class='btn btn-warning btn-sm btnAgregarEmpleado' data-id='{$row['id_sucursal']}' data-bs-toggle='modal' data-bs-target='#AsignarEmpleadoModal'>Asignar Empleado</button>
                     </td>";
                 echo "</tr>";
             }
