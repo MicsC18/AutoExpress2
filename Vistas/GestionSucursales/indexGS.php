@@ -28,7 +28,10 @@ session_start();
     <title>Gestión de Sucursales</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="indexGS.js"></script>
+    <script defer src="javaGS.js"></script>
+   
 </head>
 
 <body>
@@ -107,10 +110,12 @@ session_start();
                                     <div class="mb-3">
                                         <label for="Empleadonombre" class="form-label">Nombre del Empleado</label>
                                         <input type="text" class="form-control" id="Empleadonombre" name="Empleadonombre" required>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="Empleadoclave" class="form-label">Clave</label>
                                         <input type="text" class="form-control" id="Empleadoclave" name="Empleadoclave" required>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="BtnAsiganrEmpleado">Asignar</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="CencelarAsignacion">Cancelar</button>
@@ -129,26 +134,30 @@ session_start();
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="editarSucursalForm" method="POST" action="editarSucursal.php">
+                                <form id="editarSucursalForm" method="POST" action="#">
                                     <input type="hidden" id="idSucursal" name="idSucursal">
                                     <div class="mb-3">
                                         <label for="nombreSucursal" class="form-label">Nombre</label>
                                         <input type="text" class="form-control" id="nombreSucursal" name="nombreSucursal" required>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="provinciaSucursal" class="form-label">Provincia</label>
                                         <input type="text" class="form-control" id="provinciaSucursal" name="provinciaSucursal" required>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="codigoPostalSucursal" class="form-label">Código Postal</label>
                                         <input type="text" class="form-control" id="codigoPostalSucursal" name="codigoPostalSucursal" required>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="ubicacionSucursal" class="form-label">Ubicación</label>
                                         <input type="text" class="form-control" id="ubicacionSucursal" name="ubicacionSucursal" required>
+                                        <div class="invalid-feedback"></div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary" id="btnGuardarEdicionSucursal">Guardar Cambios</button>
+                                    <button type="button" class="btn btn-secondary" id="CancelarEdicionSucursal" data-bs-dismiss="modal">Cancelar</button>
                                 </form>
                             </div>
                         </div>
@@ -230,7 +239,7 @@ session_start();
                   <button class="btn btn-primary" type="button"  data-bs-toggle='modal' data-bs-target='#AgregarUsuarioModal'>Agregar Usuario</button>
                 </div>
 
-
+                <!-- Agregar Usuario -->
                 <div class="modal fade" id="AgregarUsuarioModal" tabindex="-1" aria-labelledby="AgregarUsuarioLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -252,6 +261,7 @@ session_start();
                                                     } 
                                                 ?>
                                         </select>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nombreUsuario" class="form-label">Nombre</label>
@@ -277,8 +287,8 @@ session_start();
                                         </select>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-success">Asignar Rol</button>
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success" id="AgregarUsuarioBTN">Asignar Rol</button>
+                                        <button type="button" class="btn btn-outline-secondary" id="CancelarAgregarUsuarioBTN" data-bs-dismiss="modal">Cancelar</button>
                                     </div>
                                </form>
                             </div>
@@ -286,6 +296,39 @@ session_start();
                     </div>
                 </div>
 
+                <div class="modal fade" id="ReasignarRolModal" tabindex="-1" aria-labelledby="ReasignarRolModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header border-bottom-0">
+                                <h5 class="modal-title" id="ReasignarRolModalLabel">
+                                    <i class="bi bi-person-plus"></i> Asignar rol al Usuario
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                             <div class="modal-body">
+                                <form id="ReasignarRolForm" method="POST" action="../../Controlador/GestionSucursales/.php">
+                                    <div class="mb-3">
+                                        <label for="NuevoRolUsuario" class="form-label">Seleccionar Rol</label>
+                                        <select name="NuevoRolUsuario" id="NuevoRolUsuario" class="form-select" >
+                                            <option value="">Seleccione el rol a asignar.</option>
+                                                <?php 
+                                                    foreach($roles as $rol) {
+                                                        echo '<option value="'.$rol["id"].'">'.$rol["nombre"].'</option>';
+                                                    } 
+                                                ?>
+                                        </select>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                   
+                                    <div class="d-flex justify-content-between">
+                                        <button type="submit" class="btn btn-success" id="ReasignarRolBTN">Guardar Rol</button>
+                                        <button type="button" class="btn btn-outline-secondary" id="CancelarReasignarRolBTN" data-bs-dismiss="modal">Cancelar Operación</button>
+                                    </div>
+                               </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Modal Eliminar USUARIO-->
                 <div class="modal fade" id="modalEliminarUsuario" tabindex="-1" aria-labelledby="modalEliminarUsuarioLabel" aria-hidden="true" data-bs-backdrop="true">
