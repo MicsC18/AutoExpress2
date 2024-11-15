@@ -55,6 +55,58 @@
             }
         }
 
+        public function verificarEmpleado($id_empleado_sucursal, $nombre) {
+            
+            $sql = "SELECT 1 FROM empleados_sucursales WHERE id_empleado_sucursal = :id_empleado_sucursal AND nombre = :nombre LIMIT 1";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_empleado_sucursal', $id_empleado_sucursal, PDO::PARAM_INT);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            
+            try {
+                $stmt->execute();
+                if ($stmt->rowCount() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (PDOException $e) {
+                error_log('Error al verificar administrador: ' . $e->getMessage());
+                return false;
+            }
+        }
+
+        public function ObtenerClave($id_empleado_sucursal) {
+        
+            $sql = "SELECT clave FROM empleados_sucursales WHERE id_empleado_sucursal = :id_empleado_sucursal";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_empleado_sucursal', $id_empleado_sucursal, PDO::PARAM_INT);
+            
+            if ($stmt->execute()) {
+                $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($resultado) {
+                    return $resultado['clave'];
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        public function eliminar($id_empleado_sucursal) {
+            $sql = "DELETE FROM empleados_sucursales WHERE id_empleado_sucursal = :id_empleado_sucursal";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_empleado_sucursal', $id_empleado_sucursal);
+            try {
+                $stmt->execute();
+                return $stmt->rowCount() > 0;
+            } catch (PDOException $e) {
+                error_log("Error al eliminar el empleado: " . $e->getMessage());
+                return false; 
+            }
+            
+        }
+
     }
 
 ?>
